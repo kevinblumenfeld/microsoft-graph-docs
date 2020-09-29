@@ -7,18 +7,18 @@ description: "Automatically generated file. DO NOT MODIFY"
 MSHTTPClient *httpClient = [MSClientFactory createHTTPClientWithAuthenticationProvider:authenticationProvider];
 
 NSString *MSGraphBaseURL = @"https://graph.microsoft.com/v1.0/";
-NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[MSGraphBaseURL stringByAppendingString:@"/me/onlineMeetings"]]];
+NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[MSGraphBaseURL stringByAppendingString:@"/teams/{id}/members"]]];
 [urlRequest setHTTPMethod:@"POST"];
 [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
-MSGraphOnlineMeeting *onlineMeeting = [[MSGraphOnlineMeeting alloc] init];
-[onlineMeeting setStartDateTime: "2019-07-13T00:30:34.2444915+03:00"];
-[onlineMeeting setEndDateTime: "2019-07-13T01:00:34.2464912+03:00"];
-[onlineMeeting setSubject:@"User Token Meeting"];
+MSGraphConversationMember *conversationMember = [[MSGraphConversationMember alloc] init];
+NSMutableArray *rolesList = [[NSMutableArray alloc] init];
+[rolesList addObject: @"owner"];
+[conversationMember setRoles:rolesList];
 
 NSError *error;
-NSData *onlineMeetingData = [onlineMeeting getSerializedDataWithError:&error];
-[urlRequest setHTTPBody:onlineMeetingData];
+NSData *conversationMemberData = [conversationMember getSerializedDataWithError:&error];
+[urlRequest setHTTPBody:conversationMemberData];
 
 MSURLSessionDataTask *meDataTask = [httpClient dataTaskWithRequest:urlRequest 
 	completionHandler: ^(NSData *data, NSURLResponse *response, NSError *nserror) {

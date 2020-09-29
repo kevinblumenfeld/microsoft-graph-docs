@@ -6,15 +6,8 @@ description: "Automatically generated file. DO NOT MODIFY"
 
 IGraphServiceClient graphClient = GraphServiceClient.builder().authenticationProvider( authProvider ).buildClient();
 
-boolean notifyTeam = true;
-
-int startDateTime = 08/10/2018 00:00:00;
-
-int endDateTime = 15/10/2018 00:00:00;
-
-graphClient.teams("{teamId}").schedule()
-	.share(notifyTeam,startDateTime,endDateTime)
+graphClient.teams("{teamsId}").members("{membership-id}")
 	.buildRequest()
-	.post();
+	.delete();
 
 ```
